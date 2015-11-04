@@ -1,14 +1,14 @@
 package com.riversoft.weixin.demo;
 
-import com.riversoft.weixin.base.AgentSetting;
-import com.riversoft.weixin.base.Settings;
-import com.riversoft.weixin.decrypt.MessageDecryption;
-import com.riversoft.weixin.message.XmlMessages;
-import com.riversoft.weixin.message.base.Message;
-import com.riversoft.weixin.message.request.XmlRequest;
-import com.riversoft.weixin.message.xml.XmlMessageHeader;
-import com.riversoft.weixin.message.xml.TextXmlMessage;
-import com.riversoft.weixin.util.XmlObjectMapper;
+import com.riversoft.weixin.qy.base.AgentSetting;
+import com.riversoft.weixin.qy.base.DefaultSettings;
+import com.riversoft.weixin.qy.decrypt.MessageDecryption;
+import com.riversoft.weixin.qy.message.XmlMessages;
+import com.riversoft.weixin.qy.message.base.Message;
+import com.riversoft.weixin.qy.message.request.XmlRequest;
+import com.riversoft.weixin.qy.message.xml.XmlMessageHeader;
+import com.riversoft.weixin.qy.message.xml.TextXmlMessage;
+import com.riversoft.weixin.qy.util.XmlObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class WxCallbackController {
 
     private static Logger logger = LoggerFactory.getLogger(WxCallbackController.class);
 
-    @RequestMapping("/callback")
+    @RequestMapping("/wx/qy")
     @ResponseBody
     public String callback(@RequestParam(value="msg_signature") String signature,
                            @RequestParam(value="timestamp") String timestamp,
@@ -33,10 +33,11 @@ public class WxCallbackController {
 
         logger.info("msg_signature={}, nonce={}, timestamp={}, echostr={}", signature, nonce, timestamp, echostr);
 
-        AgentSetting agentSetting = Settings.buildIn().getDefaultAgentSetting();
+        AgentSetting agentSetting = DefaultSettings.defaultSettings().getAgentSetting();
+        String corpId = DefaultSettings.defaultSettings().getCorpSetting().getCorpId();
 
         try {
-            MessageDecryption messageDecryption = new MessageDecryption(agentSetting.getToken(), agentSetting.getAesKey(), Settings.buildIn().getCorpId());
+            MessageDecryption messageDecryption = new MessageDecryption(agentSetting.getToken(), agentSetting.getAesKey(), corpId);
             if (!StringUtils.isEmpty(echostr)) {
                 String echo = messageDecryption.decryptEcho(signature, timestamp, nonce, echostr);
                 logger.info("消息签名验证成功.");
