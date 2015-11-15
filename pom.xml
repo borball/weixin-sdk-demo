@@ -12,6 +12,11 @@
     <artifactId>weixin-sdk-demo</artifactId>
     <description>微信企业号开发Demo</description>
 
+    <properties>
+        <commons-io.version>2.4</commons-io.version>
+        <weixin-version>0.3.3</weixin-version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -20,14 +25,20 @@
 
         <dependency>
             <groupId>cn.com.riversoft</groupId>
+            <artifactId>weixin-mp</artifactId>
+            <version>${weixin-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.com.riversoft</groupId>
             <artifactId>weixin-qydev</artifactId>
-            <version>0.1.0</version>
+            <version>${weixin-version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>${commons-io.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,16 +1,19 @@
 package com.riversoft.weixin.demo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.riversoft.weixin.common.decrypt.AesException;
+import com.riversoft.weixin.common.decrypt.MessageDecryption;
+import com.riversoft.weixin.common.decrypt.SHA1;
+import com.riversoft.weixin.common.message.XmlMessageHeader;
+import com.riversoft.weixin.common.message.xml.TextXmlMessage;
+import com.riversoft.weixin.common.util.XmlObjectMapper;
+import com.riversoft.weixin.mp.base.AppSetting;
 import com.riversoft.weixin.qy.base.AgentSetting;
 import com.riversoft.weixin.qy.base.DefaultSettings;
-import com.riversoft.weixin.qy.decrypt.MessageDecryption;
-import com.riversoft.weixin.qy.message.XmlMessages;
-import com.riversoft.weixin.qy.message.base.Message;
-import com.riversoft.weixin.qy.message.request.XmlRequest;
-import com.riversoft.weixin.qy.message.xml.XmlMessageHeader;
-import com.riversoft.weixin.qy.message.xml.TextXmlMessage;
-import com.riversoft.weixin.qy.util.XmlObjectMapper;
+import com.riversoft.weixin.qy.message.QyXmlMessages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +26,16 @@ public class WxCallbackController {
 
     private static Logger logger = LoggerFactory.getLogger(WxCallbackController.class);
 
+    @Autowired
+    private DuplicatedMessageChecker duplicatedMessageChecker;
+
+    public void setDuplicatedMessageChecker(DuplicatedMessageChecker duplicatedMessageChecker) {
+        this.duplicatedMessageChecker = duplicatedMessageChecker;
+    }
+
     @RequestMapping("/wx/qy")
     @ResponseBody
-    public String callback(@RequestParam(value="msg_signature") String signature,
+    public String qy(@RequestParam(value="msg_signature") String signature,
                            @RequestParam(value="timestamp") String timestamp,
                            @RequestParam(value="nonce") String nonce,
                            @RequestParam(value="echostr", required = false) String echostr,
@@ -43,11 +53,8 @@ public class WxCallbackController {
                 logger.info("消息签名验证成功.");
                 return echo;
             } else {
-                XmlRequest xmlRequest = XmlMessages.fromXml(messageDecryption.decrypt(signature, timestamp, nonce, content));
-                Message message = dispatch(xmlRequest);
-                if (message != null && isSyncResponse(message)) {
-                    return messageDecryption.encrypt(XmlMessages.toXml((XmlMessageHeader) message), timestamp, nonce);
-                }
+                XmlMessageHeader xmlRequest = QyXmlMessages.fromXml(messageDecryption.decrypt(signature, timestamp, nonce, content));
+                mpDispatch(xmlRequest);
             }
         } catch (Exception e) {
             logger.error("callback failed.", e);
@@ -56,15 +63,70 @@ public class WxCallbackController {
         return "";
     }
 
-    private boolean isSyncResponse(Message message) {
-        return message instanceof XmlMessageHeader;
+    @RequestMapping("/wx/mp")
+    @ResponseBody
+    public String mp(@RequestParam(value="signature") String signature,
+                     @RequestParam(value="msg_signature", required = false) String msg_signature,
+                     @RequestParam(value="timestamp") String timestamp,
+                     @RequestParam(value="nonce") String nonce,
+                     @RequestParam(value="echostr", required = false) String echostr,
+                     @RequestParam(value="encrypt_type", required = false) String encrypt_type,
+                     @RequestBody(required = false) String content) {
+
+        logger.info("signature={}, msg_signature={}, timestamp={}, nonce={}, echostr={}, encrypt_type={}", signature, msg_signature, timestamp, nonce, echostr, encrypt_type);
+
+        AppSetting appSetting = AppSetting.defaultSettings();
+        try {
+            if(!SHA1.getSHA1(appSetting.getToken(), timestamp, nonce).equals(signature)) {
+                logger.warn("非法请求.");
+                return "非法请求.";
+            }
+        } catch (AesException e) {
+            logger.error("check signature failed:", e);
+            return "非法请求.";
+        }
+
+        if (!StringUtils.isEmpty(echostr)) {
+            return echostr;
+        }
+
+        XmlMessageHeader xmlRequest = null;
+        if("aes".equals(encrypt_type)) {
+            try {
+                MessageDecryption messageDecryption = new MessageDecryption(appSetting.getToken(), appSetting.getAesKey(), appSetting.getAppId());
+                xmlRequest = QyXmlMessages.fromXml(messageDecryption.decrypt(msg_signature, timestamp, nonce, content));
+                XmlMessageHeader xmlResponse = mpDispatch(xmlRequest);
+
+                if(xmlResponse != null) {
+                    try {
+                        return messageDecryption.encrypt(XmlObjectMapper.defaultMapper().toXml(xmlResponse), timestamp, nonce);
+                    } catch (JsonProcessingException e) {
+                    }
+                }
+            } catch (AesException e) {
+            }
+        } else {
+            xmlRequest = QyXmlMessages.fromXml(content);
+            XmlMessageHeader xmlResponse = mpDispatch(xmlRequest);
+            if(xmlResponse != null) {
+                try {
+                    return XmlObjectMapper.defaultMapper().toXml(xmlResponse);
+                } catch (JsonProcessingException e) {
+                }
+            }
+        }
+
+        return "";
     }
 
-    private Message dispatch(XmlRequest xmlRequest) {
-        try {
-            String response = "收到" + xmlRequest.getFromUser() + "发到" + xmlRequest.getAgentId() + "的消息或者事件:\n" + XmlObjectMapper.defaultMapper().toXml(xmlRequest);
-            return new TextXmlMessage().content(response).toUser(xmlRequest.getFromUser());
-        } catch (Exception e) {
+    private XmlMessageHeader mpDispatch(XmlMessageHeader xmlRequest) {
+        String reply = "received from " + xmlRequest.getFromUser() + ":" + xmlRequest.getMsgType();
+        if(!duplicatedMessageChecker.isDuplicated(xmlRequest.getFromUser() + xmlRequest.getCreateTime().getTime())) {
+            TextXmlMessage textXmlMessage = new TextXmlMessage();
+            textXmlMessage.content(reply).toUser(xmlRequest.getFromUser()).fromUser(xmlRequest.getToUser());
+            return textXmlMessage;
+        } else {
+            logger.warn("Duplicated message: {} @ {}", xmlRequest.getMsgType(), xmlRequest.getFromUser());
         }
 
         return null;

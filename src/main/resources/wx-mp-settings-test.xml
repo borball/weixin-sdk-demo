@@ -1,0 +1,6 @@
+<AppSetting>
+    <appId>test appid</appId>
+    <secret>secret</secret>
+    <token>wonskd113n</token>
+    <aesKey></aesKey>
+</AppSetting>
