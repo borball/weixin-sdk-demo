@@ -4,10 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.riversoft.weixin.common.decrypt.AesException;
 import com.riversoft.weixin.common.decrypt.MessageDecryption;
 import com.riversoft.weixin.common.decrypt.SHA1;
+import com.riversoft.weixin.common.event.ClickEvent;
 import com.riversoft.weixin.common.message.XmlMessageHeader;
 import com.riversoft.weixin.common.message.xml.TextXmlMessage;
 import com.riversoft.weixin.common.util.XmlObjectMapper;
 import com.riversoft.weixin.mp.base.AppSetting;
+import com.riversoft.weixin.mp.message.MpXmlMessages;
+import com.riversoft.weixin.mp.message.xml.Forward2CareXmlMessage;
 import com.riversoft.weixin.qy.base.AgentSetting;
 import com.riversoft.weixin.qy.base.DefaultSettings;
 import com.riversoft.weixin.qy.message.QyXmlMessages;
@@ -33,6 +36,15 @@ public class WxCallbackController {
         this.duplicatedMessageChecker = duplicatedMessageChecker;
     }
 
+    /**
+     * 企业号回调接口
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @param echostr
+     * @param content
+     * @return
+     */
     @RequestMapping("/wx/qy")
     @ResponseBody
     public String qy(@RequestParam(value="msg_signature") String signature,
@@ -54,7 +66,7 @@ public class WxCallbackController {
                 return echo;
             } else {
                 XmlMessageHeader xmlRequest = QyXmlMessages.fromXml(messageDecryption.decrypt(signature, timestamp, nonce, content));
-                mpDispatch(xmlRequest);
+                qyDispatch(xmlRequest);
             }
         } catch (Exception e) {
             logger.error("callback failed.", e);
@@ -63,6 +75,21 @@ public class WxCallbackController {
         return "";
     }
 
+    private void qyDispatch(XmlMessageHeader xmlRequest) {
+
+    }
+
+    /**
+     * 公众号回调接口
+     * @param signature
+     * @param msg_signature
+     * @param timestamp
+     * @param nonce
+     * @param echostr
+     * @param encrypt_type
+     * @param content
+     * @return
+     */
     @RequestMapping("/wx/mp")
     @ResponseBody
     public String mp(@RequestParam(value="signature") String signature,
@@ -94,7 +121,7 @@ public class WxCallbackController {
         if("aes".equals(encrypt_type)) {
             try {
                 MessageDecryption messageDecryption = new MessageDecryption(appSetting.getToken(), appSetting.getAesKey(), appSetting.getAppId());
-                xmlRequest = QyXmlMessages.fromXml(messageDecryption.decrypt(msg_signature, timestamp, nonce, content));
+                xmlRequest = MpXmlMessages.fromXml(messageDecryption.decrypt(msg_signature, timestamp, nonce, content));
                 XmlMessageHeader xmlResponse = mpDispatch(xmlRequest);
 
                 if(xmlResponse != null) {
@@ -106,7 +133,7 @@ public class WxCallbackController {
             } catch (AesException e) {
             }
         } else {
-            xmlRequest = QyXmlMessages.fromXml(content);
+            xmlRequest = MpXmlMessages.fromXml(content);
             XmlMessageHeader xmlResponse = mpDispatch(xmlRequest);
             if(xmlResponse != null) {
                 try {
@@ -120,8 +147,19 @@ public class WxCallbackController {
     }
 
     private XmlMessageHeader mpDispatch(XmlMessageHeader xmlRequest) {
-        String reply = "received from " + xmlRequest.getFromUser() + ":" + xmlRequest.getMsgType();
+        String reply = "您好，正在为您接入客服。";
         if(!duplicatedMessageChecker.isDuplicated(xmlRequest.getFromUser() + xmlRequest.getCreateTime().getTime())) {
+
+            if(xmlRequest instanceof ClickEvent) {
+                ClickEvent clickEvent = (ClickEvent)xmlRequest;
+                if("contact".equals(clickEvent.getEventKey())) {
+                    Forward2CareXmlMessage kfMessage = new Forward2CareXmlMessage();
+                    kfMessage.setFromUser(xmlRequest.getToUser());
+                    kfMessage.setToUser(xmlRequest.getFromUser());
+                    kfMessage.setCreateTime(xmlRequest.getCreateTime());
+                    return kfMessage;
+                }
+            }
             TextXmlMessage textXmlMessage = new TextXmlMessage();
             textXmlMessage.content(reply).toUser(xmlRequest.getFromUser()).fromUser(xmlRequest.getToUser());
             return textXmlMessage;
@@ -131,5 +169,6 @@ public class WxCallbackController {
 
         return null;
     }
+
 
 }

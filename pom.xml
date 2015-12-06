@@ -14,7 +14,9 @@
 
     <properties>
         <commons-io.version>2.4</commons-io.version>
-        <weixin-version>0.3.3</weixin-version>
+        <weixin-version>0.5.1-SNAPSHOT</weixin-version>
+        <jackson.version>2.6.3</jackson.version>
+        <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
     </properties>
 
     <dependencies>
@@ -40,6 +42,30 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson-mapper-asl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>
