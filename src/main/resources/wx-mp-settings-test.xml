@@ -1,4 +1,4 @@
-<!-- 这个是微信的测试账号，自己申请：http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login -->
+<!-- 这个是borball的微信的测试账号，自己申请：http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login -->
 <AppSetting>
     <appId>wx74755fbba35c24da</appId>
     <secret>d4624c36b6795d1d99dcf0547af5443d</secret>
