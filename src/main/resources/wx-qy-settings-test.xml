@@ -1,13 +1,4 @@
-<DefaultSettings>
-    <corpSetting>
-        <corpId>test corp id</corpId>
-        <corpSecret>test corp secret</corpSecret>
-    </corpSetting>
-    <agentSetting>
-        <agentId>30</agentId>
-        <name>agent name</name>
-        <callbackUrl>http://somesite.com</callbackUrl>
-        <token>token</token>
-        <aesKey>aes key</aesKey>
-    </agentSetting>
-</DefaultSettings>
+<CorpSetting>
+    <corpId>xxxxxxxxxxx</corpId>
+    <corpSecret>xxxxxxxxxxxxxx</corpSecret>
+</CorpSetting>

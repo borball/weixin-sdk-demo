@@ -14,7 +14,7 @@
 
     <properties>
         <commons-io.version>2.4</commons-io.version>
-        <weixin-version>0.5.1-SNAPSHOT</weixin-version>
+        <weixin-version>0.7.2</weixin-version>
         <jackson.version>2.6.3</jackson.version>
         <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
     </properties>
@@ -63,6 +63,12 @@
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
 
 
