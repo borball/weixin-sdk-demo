@@ -1,12 +1,11 @@
 package com.riversoft.weixin.demo;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.riversoft.weixin.common.decrypt.AesException;
 import com.riversoft.weixin.common.decrypt.MessageDecryption;
 import com.riversoft.weixin.common.decrypt.SHA1;
 import com.riversoft.weixin.common.event.EventRequest;
+import com.riversoft.weixin.common.exception.WxRuntimeException;
 import com.riversoft.weixin.common.message.XmlMessageHeader;
-import com.riversoft.weixin.common.util.XmlObjectMapper;
 import com.riversoft.weixin.mp.base.AppSetting;
 import com.riversoft.weixin.mp.care.CareMessages;
 import com.riversoft.weixin.mp.message.MpXmlMessages;
@@ -81,8 +80,8 @@ public class WxCallbackController {
                 XmlMessageHeader xmlResponse = qyDispatch(xmlRequest);
                 if(xmlResponse != null) {
                     try {
-                        return messageDecryption.encrypt(XmlObjectMapper.defaultMapper().toXml(xmlResponse), timestamp, nonce);
-                    } catch (JsonProcessingException e) {
+                        return messageDecryption.encrypt(MpXmlMessages.toXml(xmlResponse), timestamp, nonce);
+                    } catch (WxRuntimeException e) {
                     }
                 }
             }
@@ -151,8 +150,9 @@ public class WxCallbackController {
 
                 if(xmlResponse != null) {
                     try {
-                        return messageDecryption.encrypt(XmlObjectMapper.defaultMapper().toXml(xmlResponse), timestamp, nonce);
-                    } catch (JsonProcessingException e) {
+                        return messageDecryption.encrypt(MpXmlMessages.toXml(xmlResponse), timestamp, nonce);
+                    } catch (WxRuntimeException e) {
+
                     }
                 }
             } catch (AesException e) {
@@ -162,8 +162,8 @@ public class WxCallbackController {
             XmlMessageHeader xmlResponse = mpDispatch(xmlRequest);
             if(xmlResponse != null) {
                 try {
-                    return XmlObjectMapper.defaultMapper().toXml(xmlResponse);
-                } catch (JsonProcessingException e) {
+                    return MpXmlMessages.toXml(xmlResponse);
+                } catch (WxRuntimeException e) {
                 }
             }
         }
