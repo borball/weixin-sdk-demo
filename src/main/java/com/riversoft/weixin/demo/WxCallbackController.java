@@ -80,7 +80,7 @@ public class WxCallbackController {
                 XmlMessageHeader xmlResponse = qyDispatch(xmlRequest);
                 if(xmlResponse != null) {
                     try {
-                        return messageDecryption.encrypt(MpXmlMessages.toXml(xmlResponse), timestamp, nonce);
+                        return messageDecryption.encrypt(QyXmlMessages.toXml(xmlResponse), timestamp, nonce);
                     } catch (WxRuntimeException e) {
                     }
                 }
