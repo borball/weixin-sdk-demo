@@ -14,8 +14,8 @@
 
     <properties>
         <commons-io.version>2.4</commons-io.version>
-        <weixin-version>0.8.2</weixin-version>
-        <jackson.version>2.6.3</jackson.version>
+        <weixin-version>0.8.6</weixin-version>
+        <jackson.version>2.7.4</jackson.version>
         <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
     </properties>
 
