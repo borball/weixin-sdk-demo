@@ -25,11 +25,11 @@
 6. 如果需要修改应用服务器端口:
 	- 修改文件：application.properties
 
-7. 启动： Run:  
-        com.riversoft.weixin.demo.mp.Application
-        com.riversoft.weixin.demo.qydev.Application        
-        com.riversoft.weixin.demo.open.Application
-        com.riversoft.weixin.demo.pay.Application
-        com.riversoft.weixin.demo.app.Application
+7. 启动：
+    - com.riversoft.weixin.demo.mp.Application
+    - com.riversoft.weixin.demo.qydev.Application        
+    - com.riversoft.weixin.demo.open.Application
+    - com.riversoft.weixin.demo.pay.Application
+    - com.riversoft.weixin.demo.app.Application
 
 
