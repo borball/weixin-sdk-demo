@@ -1,4 +1,4 @@
-package com.riversoft.weixin.demo;
+package com.riversoft.weixin.demo.mp;
 
 import com.riversoft.weixin.common.decrypt.AesException;
 import com.riversoft.weixin.common.decrypt.MessageDecryption;

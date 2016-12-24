@@ -13,12 +13,23 @@
 2. 公众号：
 	- 修改wx-mp-settings-test.xml 文件, 根据您的情况修改appId, appSecret相关信息。
 
-    
-3. 如果需要修改应用服务器端口:
+3. 开发平台：
+	- 修改wx-open-settings-test.xml 文件, 根据您的情况修改appId, appSecret相关信息。
+	
+4. 微信支付：
+	- 修改wx-pay-settings-test.xml 文件, 根据您的情况修改appId, mchID, key, certPath, certPass相关信息。
+
+5. 小程序：
+	- 修改wx-app-settings-test.xml 文件, 根据您的情况修改appId, appSecret相关信息。
+	
+6. 如果需要修改应用服务器端口:
 	- 修改文件：application.properties
 
-
-4. 启动： Run:  com.riversoft.weixin.demo.Application
-
+7. 启动： Run:  
+        com.riversoft.weixin.demo.mp.Application
+        com.riversoft.weixin.demo.qydev.Application        
+        com.riversoft.weixin.demo.open.Application
+        com.riversoft.weixin.demo.pay.Application
+        com.riversoft.weixin.demo.app.Application
 
 

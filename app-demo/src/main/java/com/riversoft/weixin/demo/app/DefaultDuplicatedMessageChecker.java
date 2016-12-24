@@ -1,4 +1,4 @@
-package com.riversoft.weixin.demo;
+package com.riversoft.weixin.demo.app;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

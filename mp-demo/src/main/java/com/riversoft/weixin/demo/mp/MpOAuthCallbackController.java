@@ -1,4 +1,4 @@
-package com.riversoft.weixin.demo;
+package com.riversoft.weixin.demo.mp;
 
 import com.riversoft.weixin.common.oauth2.AccessToken;
 import com.riversoft.weixin.common.oauth2.OpenUser;

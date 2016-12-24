@@ -1,4 +1,4 @@
-package com.riversoft.weixin.demo;
+package com.riversoft.weixin.demo.qydev;
 
 import com.riversoft.weixin.common.decrypt.MessageDecryption;
 import com.riversoft.weixin.common.exception.WxRuntimeException;
