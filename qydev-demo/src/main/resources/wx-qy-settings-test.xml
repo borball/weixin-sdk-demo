@@ -1,0 +1,7 @@
+<CorpSetting>
+    <corpId>xxxxxxxxxxx</corpId>
+    <corpSecret>xxxxxxxxxxxxxx</corpSecret>
+    <!-- 可以指定自己的tokenHolderClass，继承与com.riversoft.weixin.common.AccessTokenHolder
+    <tokenHolderClass>com.abc.Abc</tokenHolderClass>
+    -->
+</CorpSetting>

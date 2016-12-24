@@ -5,24 +5,36 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.6.RELEASE</version>
+        <version>1.4.3.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>weixin-sdk-demo</artifactId>
-    <description>微信企业号开发Demo</description>
+    <description>weixin SDK Demo</description>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
         <commons-io.version>2.4</commons-io.version>
-        <weixin-version>0.8.8</weixin-version>
-        <jackson.version>2.7.4</jackson.version>
+        <weixin-version>0.9.1-SNAPSHOT</weixin-version>
+        <jackson.version>2.8.5</jackson.version>
         <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
     </properties>
 
+    <modules>
+        <module>mp-demo</module>
+        <module>qydev-demo</module>
+        <module>open-demo</module>
+        <module>pay-demo</module>
+        <module>app-demo</module>
+    </modules>
+
+    <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.4.3.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -37,6 +49,24 @@
             <version>${weixin-version}</version>
         </dependency>
 
+		<dependency>
+            <groupId>cn.com.riversoft</groupId>
+            <artifactId>weixin-open</artifactId>
+            <version>${weixin-version}</version>
+        </dependency>
+
+		<dependency>
+            <groupId>cn.com.riversoft</groupId>
+            <artifactId>weixin-pay</artifactId>
+            <version>${weixin-version}</version>
+        </dependency>
+
+		<dependency>
+            <groupId>cn.com.riversoft</groupId>
+            <artifactId>weixin-app</artifactId>
+            <version>${weixin-version}</version>
+        </dependency>
+		
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -70,8 +100,8 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
+    </dependencyManagement>
+
 
 </project>

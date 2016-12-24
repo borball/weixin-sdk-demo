@@ -1,0 +1,7 @@
+<PaySetting>
+    <appId>xxxxxxxxxxx</appId>
+    <mchId>yyyyyyyyyyy</mchId>
+    <key>zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</key>
+    <certPath>/opt/weixin/...</certPath>
+    <certPassword>12345678</certPassword>
+</PaySetting>

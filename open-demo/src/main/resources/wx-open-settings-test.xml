@@ -1,0 +1,7 @@
+<AppSetting>
+    <appId>wx1111111111111111</appId>
+    <secret>aaa111222333444555fffrrreeeddd1233</secret>
+    <!-- 可以指定自己的tokenHolderClass，继承与com.riversoft.weixin.common.AccessTokenHolder
+    <tokenHolderClass>com.abc.Abc</tokenHolderClass>
+    -->
+</AppSetting>
