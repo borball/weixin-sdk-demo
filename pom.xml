@@ -30,77 +30,77 @@
     </modules>
 
     <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.4.3.RELEASE</version>
-        </dependency>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>1.4.3.RELEASE</version>
+            </dependency>
 
-        <dependency>
-            <groupId>cn.com.riversoft</groupId>
-            <artifactId>weixin-mp</artifactId>
-            <version>${weixin-version}</version>
-        </dependency>
+            <dependency>
+                <groupId>cn.com.riversoft</groupId>
+                <artifactId>weixin-mp</artifactId>
+                <version>${weixin-version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>cn.com.riversoft</groupId>
-            <artifactId>weixin-qydev</artifactId>
-            <version>${weixin-version}</version>
-        </dependency>
+            <dependency>
+                <groupId>cn.com.riversoft</groupId>
+                <artifactId>weixin-qydev</artifactId>
+                <version>${weixin-version}</version>
+            </dependency>
 
-		<dependency>
-            <groupId>cn.com.riversoft</groupId>
-            <artifactId>weixin-open</artifactId>
-            <version>${weixin-version}</version>
-        </dependency>
+            <dependency>
+                <groupId>cn.com.riversoft</groupId>
+                <artifactId>weixin-open</artifactId>
+                <version>${weixin-version}</version>
+            </dependency>
 
-		<dependency>
-            <groupId>cn.com.riversoft</groupId>
-            <artifactId>weixin-pay</artifactId>
-            <version>${weixin-version}</version>
-        </dependency>
+            <dependency>
+                <groupId>cn.com.riversoft</groupId>
+                <artifactId>weixin-pay</artifactId>
+                <version>${weixin-version}</version>
+            </dependency>
 
-		<dependency>
-            <groupId>cn.com.riversoft</groupId>
-            <artifactId>weixin-app</artifactId>
-            <version>${weixin-version}</version>
-        </dependency>
-		
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
+            <dependency>
+                <groupId>cn.com.riversoft</groupId>
+                <artifactId>weixin-app</artifactId>
+                <version>${weixin-version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson-mapper-asl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${jackson-mapper-asl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
 
