@@ -1,4 +1,4 @@
-package com.riversoft.weixin.demo.qydev;
+package com.riversoft.weixin.demo.commons;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

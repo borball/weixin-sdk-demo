@@ -3,6 +3,7 @@ package com.riversoft.weixin.demo.qydev;
 import com.riversoft.weixin.common.decrypt.MessageDecryption;
 import com.riversoft.weixin.common.exception.WxRuntimeException;
 import com.riversoft.weixin.common.message.XmlMessageHeader;
+import com.riversoft.weixin.demo.commons.DuplicatedMessageChecker;
 import com.riversoft.weixin.qy.base.CorpSetting;
 import com.riversoft.weixin.qy.message.QyXmlMessages;
 import org.slf4j.Logger;

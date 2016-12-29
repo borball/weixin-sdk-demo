@@ -6,6 +6,7 @@ import com.riversoft.weixin.common.decrypt.SHA1;
 import com.riversoft.weixin.common.event.EventRequest;
 import com.riversoft.weixin.common.exception.WxRuntimeException;
 import com.riversoft.weixin.common.message.XmlMessageHeader;
+import com.riversoft.weixin.demo.commons.DuplicatedMessageChecker;
 import com.riversoft.weixin.mp.base.AppSetting;
 import com.riversoft.weixin.mp.care.CareMessages;
 import com.riversoft.weixin.mp.message.MpXmlMessages;

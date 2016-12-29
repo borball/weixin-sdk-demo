@@ -9,6 +9,7 @@ import com.riversoft.weixin.common.decrypt.AesException;
 import com.riversoft.weixin.common.decrypt.MessageDecryption;
 import com.riversoft.weixin.common.decrypt.SHA1;
 import com.riversoft.weixin.common.message.XmlMessageHeader;
+import com.riversoft.weixin.demo.commons.DuplicatedMessageChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

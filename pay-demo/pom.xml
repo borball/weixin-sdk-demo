@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springframework.boot</groupId>
+        <groupId>com.riversoft</groupId>
         <artifactId>weixin-sdk-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -13,6 +13,12 @@
     <description>Demo for PAY</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.riversoft</groupId>
+            <artifactId>commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

@@ -1,4 +1,4 @@
-package com.riversoft.weixin.demo.qydev;
+package com.riversoft.weixin.demo.commons;
 
 /**
  * Created by exizhai on 11/15/2015.
